@@ -1,0 +1,24 @@
+uuid: aab80b60-0212-4ed9-88c0-fc0c252fdeb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.dictionary_entry.field_definitions
+    - field.field.node.dictionary_entry.field_word
+    - node.type.dictionary_entry
+  module:
+    - user
+id: node.dictionary_entry.teaser
+targetEntityType: node
+bundle: dictionary_entry
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_definitions: true
+  field_word: true

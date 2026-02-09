@@ -1,0 +1,18 @@
+uuid: f628f88e-5f00-4a0f-a19f-53c14d1f64bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.dictionary_entry
+id: node.dictionary_entry.title
+field_name: title
+entity_type: node
+bundle: dictionary_entry
+label: Word
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
