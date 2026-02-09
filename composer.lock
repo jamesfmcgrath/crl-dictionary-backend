@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff6d11484d712513328bec521f63b77a",
+    "content-hash": "7c0ccf1be5eaa1250f0b0afe71290b7c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1330,6 +1330,29 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Core and its dependencies with known-compatible minor versions. Require this project INSTEAD OF drupal/core."
+        },
+        {
+            "name": "drupal/dictionary_import",
+            "version": "dev-feature/dictionary-import-module",
+            "dist": {
+                "type": "path",
+                "url": "web/modules/custom/dictionary_import",
+                "reference": "c04801d3a7d54ec8f9041b6fbdf0fefdd8b70935"
+            },
+            "require": {
+                "drupal/core": "^10"
+            },
+            "type": "drupal-custom-module",
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\dictionary_import\\": "src/"
+                }
+            },
+            "description": "Dictionary import module",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "drush/drush",
@@ -5875,7 +5898,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "drupal/dictionary_import": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {},

@@ -12,6 +12,13 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "path",
+            "url": "web/modules/custom/dictionary_import",
+            "options": {
+                "symlink": true
+            }
         }
     ],
     "require": {
@@ -19,7 +26,8 @@
         "drupal/core-composer-scaffold": "^10.6",
         "drupal/core-project-message": "^10.6",
         "drupal/core-recommended": "^10.6",
-        "drush/drush": "^13.7"
+        "drush/drush": "^13.7",
+        "drupal/dictionary_import": "@dev"
     },
     "conflict": {
         "drupal/drupal": "*"
