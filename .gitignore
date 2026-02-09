@@ -1,0 +1,117 @@
+# Drupal 10 Project .gitignore
+
+# Ignore core when managing all of a project's dependencies with Composer
+# including Drupal core.
+web/core
+web/modules/contrib
+web/themes/contrib
+web/profiles/contrib
+web/libraries
+
+# Ignore dependencies that are managed with Composer.
+vendor/
+# Commit composer.lock for reproducible installs (Drupal best practice)
+
+# Ignore configuration files that may contain sensitive information
+web/sites/*/settings*.php
+web/sites/*/services*.yml
+web/sites/*/salt.txt
+
+# Ignore user-generated content
+web/sites/*/files/
+web/sites/*/private/
+
+# Ignore Drupal's file cache directories
+web/sites/*/files/tmp/
+web/sites/*/files/js/
+web/sites/*/files/css/
+web/sites/*/files/php/
+web/sites/*/files/config_*/
+
+# Ignore backup files
+*.sql
+*.sql.gz
+*.bak
+
+# Ignore test-related files
+web/sites/simpletest
+phpunit.xml
+behat.yml
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.phpstorm.meta.php
+
+# Ignore OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Ignore temporary files
+*~
+*.tmp
+*.swp
+*.swo
+.#*
+#*#
+
+# Ignore log files
+*.log
+error.log
+access.log
+
+# Ignore environment files
+.env
+.env.local
+.env.*.local
+
+# Ignore node modules and build files (if using front-end build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+dist/
+build/
+
+# Ignore Drush
+web/drush/contrib/
+drush/contrib/
+
+# Ignore Drupal Console
+web/console/
+
+# Note: patches/ directory should be committed when using composer-patches
+# so patches are available to all developers and in deployment
+
+# Ignore custom development tools
+.docksal/
+.lando/
+.tugboat/
+.platform/
+
+# Ignore Docker
+docker-compose.override.yml
+.docker/
+
+# Ignore PHP tools
+.phpcs-cache
+.phpunit.result.cache
+
+# Ignore Yarn/NPM lock files (choose one)
+# yarn.lock
+# package-lock.json
