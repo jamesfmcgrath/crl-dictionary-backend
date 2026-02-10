@@ -57,7 +57,7 @@ class DictionaryApiClient {
    * @throws \Exception
    *   If API request fails unexpectedly.
    */
-  public function fetchWord(string $word) {
+  public function fetchWord(string $word): ?array {
     $url = sprintf('%s/%s', $this->apiBaseUrl, urlencode($word));
 
     try {
@@ -95,7 +95,7 @@ class DictionaryApiClient {
    * @return string
    *   Formatted definitions string.
    */
-  public function transformDefinitions(array $wordData) {
+  public function transformDefinitions(array $wordData): string {
     $definitions = [];
 
     if (empty($wordData['meanings'])) {

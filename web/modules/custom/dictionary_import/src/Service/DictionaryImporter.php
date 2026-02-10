@@ -3,6 +3,7 @@
 namespace Drupal\dictionary_import\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\node\NodeInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -63,7 +64,7 @@ class DictionaryImporter {
    * @throws \Exception
    *   If import fails unexpectedly.
    */
-  public function importWord(string $word) {
+  public function importWord(string $word): bool {
     // Fetch from external API
     $wordData = $this->apiClient->fetchWord($word);
 
@@ -115,7 +116,7 @@ class DictionaryImporter {
    * @return \Drupal\node\NodeInterface|null
    *   Existing node or NULL if not found.
    */
-  protected function findExistingEntry(string $word) {
+  protected function findExistingEntry(string $word): ?\Drupal\node\NodeInterface {
     $nodeStorage = $this->entityTypeManager->getStorage('node');
 
     $query = $nodeStorage->getQuery()
