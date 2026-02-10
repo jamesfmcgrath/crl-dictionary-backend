@@ -5,25 +5,22 @@ Drupal 10 backend that imports dictionary definitions from an external API and e
 ## Prerequisites
 
 - [DDEV](https://ddev.readthedocs.io/) installed
-- PHP 8.3+
-- Composer
 
 The examples below assume the DDEV project name is `crl-dictionary-backend`, which gives a base URL of `http://crl-dictionary-backend.ddev.site`. Adjust URLs if your project name differs.
 
 ## Setup
 
-```bash
+From the project root directory:
+
+````bash
 # Start DDEV
 ddev start
 
-# Install dependencies (if cloning)
+# Install dependencies
 ddev composer install
 
-# Install Drupal (if fresh setup)
-ddev drush site:install standard --site-name="Dictionary API" --account-pass=admin -y
-
-# Enable custom module
-ddev drush en dictionary_import -y
+# Install Drupal from existing config
+ddev drush site:install --existing-config -y
 
 # Clear cache
 ddev drush cr
@@ -82,3 +79,4 @@ Built for the Charles River Laboratories technical test. Demonstrates:
 - Drush command integration
 - JSON:API exposure and filtering
 - External API integration consumed by a Next.js 15 frontend
+````
