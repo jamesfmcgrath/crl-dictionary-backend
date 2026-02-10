@@ -6,7 +6,7 @@ Drupal 10 backend that imports dictionary definitions from an external API and e
 
 - [DDEV](https://ddev.readthedocs.io/) installed
 
-The examples below assume the DDEV project name is `crl-dictionary-backend`, which gives a base URL of `http://crl-dictionary-backend.ddev.site`. Adjust URLs if your project name differs.
+**Important:** This project is configured with DDEV project name `crl-dictionary-backend` (see `.ddev/config.yaml`). All example URLs use `http://crl-dictionary-backend.ddev.site`. If you change the project name, update URLs accordingly.
 
 ## Setup
 
