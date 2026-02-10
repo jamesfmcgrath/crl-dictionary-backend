@@ -68,7 +68,7 @@ function _dictionary_import_create_content_type_and_fields(): void {
       'field_name' => 'field_definitions',
       'entity_type' => 'node',
       'type' => 'text_long',
-      'cardinality' => -1,
+      'cardinality' => 1,
     ]);
     $storage->save();
   }
@@ -144,4 +144,16 @@ function _dictionary_import_create_content_type_and_fields(): void {
 function dictionary_import_update_8001(): void {
   _dictionary_import_create_content_type_and_fields();
 }
+
+/**
+ * Update field_definitions cardinality to single-value.
+ */
+function dictionary_import_update_8002(): void {
+  $field_storage = FieldStorageConfig::loadByName('node', 'field_definitions');
+  if ($field_storage && $field_storage->getCardinality() !== 1) {
+    $field_storage->setCardinality(1);
+    $field_storage->save();
+  }
+}
+
 
