@@ -8,6 +8,21 @@ use Drupal\node\Entity\NodeType;
  * Implements hook_install().
  */
 function dictionary_import_install(): void {
+  \Drupal::logger('dictionary_import')->notice('hook_install() called');
+  try {
+    _dictionary_import_create_content_type_and_fields();
+    \Drupal::logger('dictionary_import')->notice('Content type and fields created successfully');
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('dictionary_import')->error('Error in hook_install(): @message', ['@message' => $e->getMessage()]);
+    throw $e;
+  }
+}
+
+/**
+ * Creates the Dictionary Entry content type and fields.
+ */
+function _dictionary_import_create_content_type_and_fields(): void {
   // Create the Dictionary Entry content type.
   if (!NodeType::load('dictionary_entry')) {
     $type = NodeType::create([
@@ -15,11 +30,13 @@ function dictionary_import_install(): void {
       'name' => 'Dictionary Entry',
     ]);
     $type->save();
+    // Clear entity type cache to ensure bundle is registered.
+    \Drupal::entityTypeManager()->clearCachedDefinitions();
   }
 
   // Create field_word storage (plain text, required on the bundle).
   if (!FieldStorageConfig::loadByName('node', 'field_word')) {
-    FieldStorageConfig::create([
+    $storage = FieldStorageConfig::create([
       'field_name' => 'field_word',
       'entity_type' => 'node',
       'type' => 'string',
@@ -27,36 +44,49 @@ function dictionary_import_install(): void {
         'max_length' => 255,
       ],
       'cardinality' => 1,
-    ])->save();
+    ]);
+    $storage->save();
   }
 
   if (!FieldConfig::loadByName('node', 'dictionary_entry', 'field_word')) {
-    FieldConfig::create([
+    $field = FieldConfig::create([
       'field_name' => 'field_word',
       'entity_type' => 'node',
       'bundle' => 'dictionary_entry',
       'label' => 'Word',
       'required' => TRUE,
-    ])->save();
+    ]);
+    $field->save();
   }
 
   // Create field_definitions storage (long text field).
   if (!FieldStorageConfig::loadByName('node', 'field_definitions')) {
-    FieldStorageConfig::create([
+    $storage = FieldStorageConfig::create([
       'field_name' => 'field_definitions',
       'entity_type' => 'node',
       'type' => 'text_long',
       'cardinality' => -1,
-    ])->save();
+    ]);
+    $storage->save();
   }
 
   if (!FieldConfig::loadByName('node', 'dictionary_entry', 'field_definitions')) {
-    FieldConfig::create([
+    $field = FieldConfig::create([
       'field_name' => 'field_definitions',
       'entity_type' => 'node',
       'bundle' => 'dictionary_entry',
       'label' => 'Definitions',
-    ])->save();
+    ]);
+    $field->save();
   }
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Create content type and fields for existing installations.
+ */
+function dictionary_import_update_8001(): void {
+  _dictionary_import_create_content_type_and_fields();
 }
 
