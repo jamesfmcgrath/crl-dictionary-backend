@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Core\Entity\Display\EntityFormDisplay;
+use Drupal\Core\Entity\Display\EntityViewDisplay;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\NodeType;
@@ -20,7 +22,7 @@ function dictionary_import_install(): void {
 }
 
 /**
- * Creates the Dictionary Entry content type and fields.
+ * Creates the Dictionary Entry content type, fields, and displays.
  */
 function _dictionary_import_create_content_type_and_fields(): void {
   // Create the Dictionary Entry content type.
@@ -79,6 +81,58 @@ function _dictionary_import_create_content_type_and_fields(): void {
     ]);
     $field->save();
   }
+
+  // Ensure form display exists and includes the custom fields.
+  /** @var \Drupal\Core\Entity\Display\EntityFormDisplay|null $form_display */
+  $form_display = EntityFormDisplay::load('node.dictionary_entry.default');
+  if (!$form_display) {
+    $form_display = EntityFormDisplay::create([
+      'targetEntityType' => 'node',
+      'bundle' => 'dictionary_entry',
+      'mode' => 'default',
+      'status' => TRUE,
+      'id' => 'node.dictionary_entry.default',
+    ]);
+  }
+  $form_display->setComponent('field_word', [
+    'type' => 'string_textfield',
+    'weight' => 0,
+    'settings' => [],
+  ]);
+  $form_display->setComponent('field_definitions', [
+    'type' => 'text_textarea',
+    'weight' => 1,
+    'settings' => [
+      'rows' => 5,
+    ],
+  ]);
+  $form_display->save();
+
+  // Ensure view display exists and includes the custom fields.
+  /** @var \Drupal\Core\Entity\Display\EntityViewDisplay|null $view_display */
+  $view_display = EntityViewDisplay::load('node.dictionary_entry.default');
+  if (!$view_display) {
+    $view_display = EntityViewDisplay::create([
+      'targetEntityType' => 'node',
+      'bundle' => 'dictionary_entry',
+      'mode' => 'default',
+      'status' => TRUE,
+      'id' => 'node.dictionary_entry.default',
+    ]);
+  }
+  $view_display->setComponent('field_word', [
+    'type' => 'string',
+    'label' => 'above',
+    'weight' => 0,
+    'settings' => [],
+  ]);
+  $view_display->setComponent('field_definitions', [
+    'type' => 'text_default',
+    'label' => 'above',
+    'weight' => 1,
+    'settings' => [],
+  ]);
+  $view_display->save();
 }
 
 /**
