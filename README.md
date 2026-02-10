@@ -12,15 +12,18 @@ Drupal 10 backend that imports dictionary definitions from an external API and e
 
 From the project root directory:
 
-````bash
+```bash
 # Start DDEV
 ddev start
 
 # Install dependencies
 ddev composer install
 
-# Install Drupal from existing config
-ddev drush site:install --existing-config -y
+# Install Drupal (standard profile)
+ddev drush site:install standard -y
+
+# Enable custom dictionary module (creates content type + fields)
+ddev drush en dictionary_import -y
 
 # Clear cache
 ddev drush cr
@@ -66,7 +69,7 @@ ddev drush watchdog:show --count=20
 ## Architecture
 
 - **Custom Module:** `dictionary_import` (in `web/modules/custom/dictionary_import`) handles importing from the external dictionary API and managing nodes.
-- **Content Type:** Dictionary Entry with fields for the word and its definitions.
+- **Content Type:** Dictionary Entry (created programmatically on module install) with fields for the word and its definitions.
 - **API:** Entries are exposed via Drupal's JSON:API module and consumed by the Next.js 15 frontend in `../crl-dictionary-frontend`.
 
 For more implementation details (services, Drush command, JSON:API usage), see the module-level README in `web/modules/custom/dictionary_import/README.md`.
@@ -79,4 +82,3 @@ Built for the Charles River Laboratories technical test. Demonstrates:
 - Drush command integration
 - JSON:API exposure and filtering
 - External API integration consumed by a Next.js 15 frontend
-````

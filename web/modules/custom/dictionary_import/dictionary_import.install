@@ -1,0 +1,62 @@
+<?php
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\node\Entity\NodeType;
+
+/**
+ * Implements hook_install().
+ */
+function dictionary_import_install(): void {
+  // Create the Dictionary Entry content type.
+  if (!NodeType::load('dictionary_entry')) {
+    $type = NodeType::create([
+      'type' => 'dictionary_entry',
+      'name' => 'Dictionary Entry',
+    ]);
+    $type->save();
+  }
+
+  // Create field_word storage (plain text, required on the bundle).
+  if (!FieldStorageConfig::loadByName('node', 'field_word')) {
+    FieldStorageConfig::create([
+      'field_name' => 'field_word',
+      'entity_type' => 'node',
+      'type' => 'string',
+      'settings' => [
+        'max_length' => 255,
+      ],
+      'cardinality' => 1,
+    ])->save();
+  }
+
+  if (!FieldConfig::loadByName('node', 'dictionary_entry', 'field_word')) {
+    FieldConfig::create([
+      'field_name' => 'field_word',
+      'entity_type' => 'node',
+      'bundle' => 'dictionary_entry',
+      'label' => 'Word',
+      'required' => TRUE,
+    ])->save();
+  }
+
+  // Create field_definitions storage (long text field).
+  if (!FieldStorageConfig::loadByName('node', 'field_definitions')) {
+    FieldStorageConfig::create([
+      'field_name' => 'field_definitions',
+      'entity_type' => 'node',
+      'type' => 'text_long',
+      'cardinality' => -1,
+    ])->save();
+  }
+
+  if (!FieldConfig::loadByName('node', 'dictionary_entry', 'field_definitions')) {
+    FieldConfig::create([
+      'field_name' => 'field_definitions',
+      'entity_type' => 'node',
+      'bundle' => 'dictionary_entry',
+      'label' => 'Definitions',
+    ])->save();
+  }
+}
+
