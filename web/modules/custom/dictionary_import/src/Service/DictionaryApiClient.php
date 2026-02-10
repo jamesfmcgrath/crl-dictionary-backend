@@ -82,7 +82,7 @@ class DictionaryApiClient {
         '@word' => $word,
         '@error' => $e->getMessage(),
       ]);
-      throw new \Exception('External API request failed: ' . $e->getMessage());
+      throw new \Exception('External API request failed: ' . $e->getMessage(), 0, $e);
     }
   }
 
