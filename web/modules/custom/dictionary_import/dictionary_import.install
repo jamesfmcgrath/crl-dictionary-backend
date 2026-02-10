@@ -30,6 +30,7 @@ function _dictionary_import_create_content_type_and_fields(): void {
     $type = NodeType::create([
       'type' => 'dictionary_entry',
       'name' => 'Dictionary Entry',
+      'description' => 'Word definitions imported from external dictionary API',
     ]);
     $type->save();
     // Clear entity type cache to ensure bundle is registered.
