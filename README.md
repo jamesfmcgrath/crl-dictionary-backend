@@ -53,7 +53,7 @@ curl http://crl-dictionary-backend.ddev.site/jsonapi/node/dictionary_entry
 **Filter by specific word (used by the frontend):**
 
 ```bash
-curl "http://crl-dictionary-backend.ddev.site/jsonapi/node/dictionary_entry?filter[field_word]=hello"
+curl 'http://crl-dictionary-backend.ddev.site/jsonapi/node/dictionary_entry?filter%5Bfield_word%5D=hello'
 ```
 
 An empty `data` array indicates "word not found", which the frontend surfaces as an inline error without navigation.
