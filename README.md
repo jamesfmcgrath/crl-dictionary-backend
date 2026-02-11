@@ -58,6 +58,8 @@ curl "http://crl-dictionary-backend.ddev.site/jsonapi/node/dictionary_entry?filt
 
 An empty `data` array indicates "word not found", which the frontend surfaces as an inline error without navigation.
 
+**Note on HTTP vs HTTPS:** Examples use HTTP because DDEV uses self-signed SSL certificates. The JSON:API endpoints are available at both `http://` and `https://`, but the Next.js frontend should use HTTP when connecting to DDEV locally (self-signed certificates are rejected by Node.js by default). See the frontend README for more details on environment-specific configuration.
+
 ## Development
 
 ```bash
