@@ -6,8 +6,9 @@ Imports dictionary definitions from an external API (Free Dictionary API) and cr
 
 - Drupal 10.x
 - Node and JSON:API modules (declared as dependencies)
-- Dictionary Entry content type with `field_word` and `field_definitions` fields
 - Composer (module must be required via path repository in root project)
+
+The Dictionary Entry content type with `field_word` and `field_definitions` fields is created automatically when the module is installed (via `hook_install`) or when `dictionary:setup` is run.
 
 ## Installation
 
@@ -31,6 +32,15 @@ ddev drush cr
 ```
 
 ## Usage
+
+### Setup (if needed)
+
+For existing installations where the content type was not created on module install:
+
+```bash
+ddev drush dictionary:setup
+# or: ddev drush dict-setup
+```
 
 ### Drush command
 
