@@ -61,7 +61,7 @@ class DictionaryApiClient {
     $url = sprintf('%s/%s', $this->apiBaseUrl, urlencode($word));
 
     try {
-      $response = $this->httpClient->request('GET', $url);
+      $response = $this->httpClient->request('GET', $url, ['timeout' => 10]);
       $data = json_decode($response->getBody()->getContents(), TRUE);
 
       if (empty($data) || !is_array($data)) {
