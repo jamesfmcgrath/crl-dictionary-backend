@@ -66,6 +66,28 @@ ddev drush cr
 ddev drush watchdog:show --count=20
 ```
 
+## Testing
+
+Kernel PHPUnit tests are configured via the root `phpunit.xml` and live under the custom module:
+
+- `web/modules/custom/dictionary_import/tests/src/Kernel/DictionaryImporterTest.php`
+
+These tests cover:
+
+- Creating a new `Dictionary Entry` node when importing a word that does not yet exist.
+- Updating an existing `Dictionary Entry` node when importing a word that already exists.
+- Handling the "word not found" case from the external API without creating any nodes.
+
+From the backend project root, run:
+
+```bash
+# Run all configured kernel tests
+ddev exec ./vendor/bin/phpunit
+
+# Or restrict to the dictionary_import kernel tests suite
+ddev exec ./vendor/bin/phpunit web/modules/custom/dictionary_import/tests/src/Kernel/DictionaryImporterTest.php
+```
+
 ## Troubleshooting
 
 If the `dictionary:import` command fails with `'field_word' not found`, the content type and fields may not have been created during module installation. You can manually create them by running:

@@ -60,10 +60,20 @@ GET /jsonapi/node/dictionary_entry?filter[field_word]=hello
 
 ## Testing
 
-Run PHPUnit tests (if present):
+Kernel PHPUnit tests for this module live under:
+
+- `tests/src/Kernel/DictionaryImporterTest.php`
+
+They verify:
+
+- Creating a new `Dictionary Entry` node for a previously unseen word.
+- Updating an existing `Dictionary Entry` node when the word already exists.
+- Not creating any nodes when the external API reports that a word is not found.
+
+From the Drupal project root (where `phpunit.xml` is located), run:
 
 ```bash
-ddev exec php core/scripts/run-tests.php --module dictionary_import
+ddev exec ./vendor/bin/phpunit web/modules/custom/dictionary_import/tests/src/Kernel/DictionaryImporterTest.php
 ```
 
 Manual verification: import a word, then confirm the node exists and is exposed via JSON:API.
